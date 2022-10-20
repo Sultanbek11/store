@@ -6,13 +6,16 @@ class Store(models.Model):
     filial = models.CharField(max_length=200)
     name_director = models.CharField(max_length=100)
 
-    def str(self):
+    def __str__(self):
         return self.name_store
 
 
 class Product(models.Model):
     title = models.CharField(max_length=200)
-    store_id = models.OneToOneField(Store, on_delete=models.CASCADE)
+    store_id = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='products')
     count = models.IntegerField()
     price = models.IntegerField()
     instock = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
